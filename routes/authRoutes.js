@@ -2,18 +2,15 @@
 const express = require("express");
 const router = express.Router();
 
-// Register route
-router.post("/register", (req, res) => {
-    res.status(501).json({
-        message: "Register API will be implemented soon"
-    });
-});
+const {
+    registerUser,
+    loginUser
+} = require("../controllers/authController");
 
-// Login route
-router.post("/login", (req, res) => {
-    res.status(501).json({
-        message: "Login API will be implemented soon"
-    });
-});
+// Register API
+router.post("/register", registerUser);
+
+// Login API
+router.post("/login", loginUser);
 
 module.exports = router;
