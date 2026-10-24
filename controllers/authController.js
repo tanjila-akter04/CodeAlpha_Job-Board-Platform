@@ -2,6 +2,8 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+console.log("AuthController User:", typeof User);
+console.log("AuthController findOne:", typeof User.findOne);
 
 // Register a new user
 const registerUser = async (req, res) => {
@@ -59,17 +61,22 @@ const registerUser = async (req, res) => {
                 role: user.role
             }
         });
-    } catch (error) {
-        if (error.code === 11000) {
-            return res.status(409).json({
-                message: "Email already exists"
-            });
-        }
+   
+} catch (error) {
+    console.error("Registration Error:", error);
 
-        return res.status(500).json({
-            message: "Registration failed"
+    if (error.code === 11000) {
+        return res.status(409).json({
+            message: "Email already exists"
         });
     }
+
+    return res.status(500).json({
+        message: "Registration failed",
+        error: error.message
+    });
+}
+
 };
 
 // Login user
