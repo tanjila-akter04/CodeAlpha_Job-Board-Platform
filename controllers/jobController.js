@@ -50,4 +50,26 @@ const createJob = async (req, res) => {
     }
 };
 
-module.exports = { createJob };
+
+const getAllJobs = async (req, res) => {
+    try {
+        const jobs = await Job.find()
+            .populate("employer", "name email")
+            .sort({ createdAt: -1 });
+
+        return res.status(200).json({
+            count: jobs.length,
+            jobs
+        });
+    } catch (error) {
+        console.error("Get Jobs Error:", error);
+
+        return res.status(500).json({
+            message: "Failed to fetch jobs"
+        });
+    }
+};
+
+
+
+module.exports = { createJob, getAllJobs };
