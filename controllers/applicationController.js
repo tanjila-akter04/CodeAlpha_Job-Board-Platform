@@ -28,13 +28,20 @@ const applyForJob = async (req, res) => {
             });
         }
 
-        const resume = await Resume.findById(resumeId);
+const resume = await Resume.findById(resumeId);
 
-        if (!resume) {
-            return res.status(404).json({
-                message: "Resume not found"
-            });
-        }
+if (!resume) {
+    return res.status(404).json({
+        message: "Resume not found"
+    });
+}
+
+if (resume.candidate.toString() !== req.user._id.toString()) {
+    return res.status(403).json({
+        message: "You can only apply using your own resume"
+    });
+}
+
 
         const application = await Application.create({
             job: jobId,
