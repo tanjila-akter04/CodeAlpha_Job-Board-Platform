@@ -7,6 +7,8 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const testRoutes = require("./routes/testRoutes");
 const jobRoutes = require("./routes/jobRoutes");
+const applicationRoutes = require("./routes/applicationRoutes");
+const resumeRoutes = require("./routes/resumeRoutes");
 
 dotenv.config();
 
@@ -20,6 +22,8 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/test", testRoutes);
 app.use("/api/jobs", jobRoutes);
+app.use("/api/applications", applicationRoutes);
+app.use("/api/resumes", resumeRoutes);
 // Home route
 app.get("/", (req, res) => {
     res.status(200).json({
